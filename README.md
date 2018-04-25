@@ -1,5 +1,5 @@
 # essentialQtso
-Simple helper C++ library for Qt stuff
+Simple helper C++ library for GUI Qt stuff
 
 Compilation
 -----------
