@@ -8,11 +8,13 @@ void plainQMessageBox_f(
         , QWidget* parent_par
 )
 {
-    QMessageBox informationMessageBoxTmp(parent_par);
-    informationMessageBoxTmp.setWindowTitle(title_par_con);
-    informationMessageBoxTmp.setText(message_par_con);
+    QMessageBox* informationMessageBoxPtrTmp(new QMessageBox(parent_par));
+    informationMessageBoxPtrTmp->setAttribute(Qt::WA_DeleteOnClose);
+    informationMessageBoxPtrTmp->setWindowTitle(title_par_con);
+    informationMessageBoxPtrTmp->setText(message_par_con);
+    informationMessageBoxPtrTmp->setModal(Qt::WindowModal);
 
-    informationMessageBoxTmp.exec();
+    informationMessageBoxPtrTmp->show();
 }
 
 void informationQMessageBox_f(
@@ -21,12 +23,14 @@ void informationQMessageBox_f(
         , QWidget* parent_par
 )
 {
-    QMessageBox informationMessageBoxTmp(parent_par);
-    informationMessageBoxTmp.setWindowTitle(title_par_con);
-    informationMessageBoxTmp.setText(message_par_con);
-    informationMessageBoxTmp.setIcon(QMessageBox::Information);
+    QMessageBox* informationMessageBoxPtrTmp(new QMessageBox(parent_par));
+    informationMessageBoxPtrTmp->setAttribute(Qt::WA_DeleteOnClose);
+    informationMessageBoxPtrTmp->setWindowTitle(title_par_con);
+    informationMessageBoxPtrTmp->setText(message_par_con);
+    informationMessageBoxPtrTmp->setIcon(QMessageBox::Information);
+    informationMessageBoxPtrTmp->setModal(Qt::WindowModal);
 
-    informationMessageBoxTmp.exec();
+    informationMessageBoxPtrTmp->show();
 }
 
 void errorQMessageBox_f(
@@ -35,30 +39,29 @@ void errorQMessageBox_f(
         , QWidget* parent_par
 )
 {
-    QMessageBox errorMessageBoxTmp(parent_par);
-    errorMessageBoxTmp.setWindowTitle(title_par_con);
-    errorMessageBoxTmp.setText(message_par_con);
-    errorMessageBoxTmp.setIcon(QMessageBox::Critical);
+    QMessageBox* errorMessageBoxPtrTmp(new QMessageBox(parent_par));
+    errorMessageBoxPtrTmp->setAttribute(Qt::WA_DeleteOnClose);
+    errorMessageBoxPtrTmp->setWindowTitle(title_par_con);
+    errorMessageBoxPtrTmp->setText(message_par_con);
+    errorMessageBoxPtrTmp->setIcon(QMessageBox::Critical);
+    errorMessageBoxPtrTmp->setModal(Qt::WindowModal);
 
-    errorMessageBoxTmp.exec();
+    errorMessageBoxPtrTmp->show();
 }
 
-bool warningQMessageBox_f(
+QMessageBox* warningQMessageBox_f(
         const QString& message_par_con
         , const QString& title_par_con
         , QWidget* parent_par
 )
 {
-    bool resultTmp;
-    QMessageBox warningMessageBoxTmp(parent_par);
-    warningMessageBoxTmp.setWindowTitle(title_par_con);
-    warningMessageBoxTmp.setText(message_par_con);
-    warningMessageBoxTmp.setIcon(QMessageBox::Warning);
-    warningMessageBoxTmp.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-
-    auto ret(warningMessageBoxTmp.exec());
-
-    resultTmp = (ret == QMessageBox::Ok);
-
-    return resultTmp;
+    QMessageBox* warningMessageBoxPtrTmp(new QMessageBox(parent_par));
+    //don't delete on close since the results are checked after
+    //warningMessageBoxPtrTmp->setAttribute(Qt::WA_DeleteOnClose);
+    warningMessageBoxPtrTmp->setWindowTitle(title_par_con);
+    warningMessageBoxPtrTmp->setText(message_par_con);
+    warningMessageBoxPtrTmp->setIcon(QMessageBox::Warning);
+    warningMessageBoxPtrTmp->setModal(Qt::WindowModal);
+    warningMessageBoxPtrTmp->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+    return warningMessageBoxPtrTmp;
 }
