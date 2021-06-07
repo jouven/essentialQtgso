@@ -4,9 +4,10 @@
 #include "crossPlatformMacros.hpp"
 
 #include <QString>
-#include <QWidget>
 
+class QWidget;
 class QMessageBox;
+class QString;
 
 //all, except the warning one, "message windws" destroy themselves on close
 //or if the parent is set when the parent does, don't know how Qt deals
